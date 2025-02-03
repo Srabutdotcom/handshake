@@ -1,3 +1,4 @@
+//@ts-self-types="../type/handshake.d.ts"
 import { Struct, HandshakeType, Uint24, 
    ClientHello, ServerHello, 
    TLSPlaintext,

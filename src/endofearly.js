@@ -1,3 +1,4 @@
+//@ts-self-types="../type/endofearly.d.ts"
 import { Handshake } from "./handshake.js";
 import { HandshakeType } from "./deps.ts";
 
