@@ -24,7 +24,7 @@ export class Handshake extends Uint8Array {
       this.msg_type = msg_type;
       this.message = message
       this.items = struct.items
-      parseMsg()
+      this.parse()
    }
    get byte() { return Uint8Array.from(this) }
 
@@ -34,14 +34,14 @@ export class Handshake extends Uint8Array {
 
    get tlsPlainText(){ return this.record }
 
-   parseMsg(){
+   parse(){
       switch (this.msg_type) {
          case HandshakeType.CLIENT_HELLO: {
-            this.handshake = ClientHello.from(this.message);
+            this.message = ClientHello.from(this.message);
             break;
          }
          case HandshakeType.SERVER_HELLO: {
-            this.handshake = ServerHello.from(this.message);
+            this.message = ServerHello.from(this.message);
             break;
          }
          default:
