@@ -1,0 +1,22 @@
+{
+  "name": "@tls/handshake",
+  "version": "0.0.1",
+  "license": "MIT",
+  "exports": "./src/mod.ts",
+  "publish": {
+    "exclude": ["dist/"]
+  },
+  "lint": {
+    "include": ["src/"],
+    "exclude": ["dist/"],
+    "rules": {
+      "exclude": ["no-var", "no-explicit-any", "no-slow-types"]
+    }
+  },
+  "imports": {
+    "@tls/enum": "jsr:@tls/enum@^0.7.0",
+    "@tls/keyexchange": "jsr:@tls/keyexchange@^0.2.0",
+    "@tls/record": "jsr:@tls/record@^0.0.9",
+    "@tls/struct": "jsr:@tls/struct@^0.3.6"
+  }
+}
