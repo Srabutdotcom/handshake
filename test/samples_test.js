@@ -7,6 +7,7 @@ const handshakeBack =new Handshake(serverHelloRecord)
 console.log(handshakeBack.type);
 console.log(handshakeBack.lengthOf);
 console.log(handshakeBack.message);
+console.log(Handshake.fromServerHello(handshakeBack.message))
 
 
 const test = new EndOfEarlyData;

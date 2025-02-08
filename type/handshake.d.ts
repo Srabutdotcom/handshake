@@ -11,6 +11,20 @@ export declare class Handshake extends Uint8Array {
   #message: Uint8Array;
 
   /**
+   * Create Handshake of ServerHello
+   * @param serverHello 
+   */
+  static fromServerHello(serverHello: Uint8Array): Handshake;
+  /**
+   * Create Handshake of ClientHello
+   * @param clientHello 
+   */
+  static fromClientHello(clientHello: Uint8Array): Handshake;
+  /**
+   * Create Handshake of EndOfEarly
+   */
+  static fromEndOfEarly(): Handshake;
+  /**
    * Creates an instance of Handshake from the given arguments.
    * @param {...any[]} args - Arguments to pass to the constructor.
    * @returns {Handshake} A new instance of Handshake.

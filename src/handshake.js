@@ -3,7 +3,8 @@ import {
    HandshakeType, Uint24,
    ClientHello, ServerHello,
    ContentType,
-   Uint16
+   Uint16,
+   safeuint8array
 } from "./deps.ts";
 import { EndOfEarlyData } from "./endofearly.js";
 
@@ -56,7 +57,20 @@ export class Handshake extends Uint8Array {
    #type
    #lengthOf
    #message
-   static from(...args){ return new Handshake(...args)}
+   static fromClientHello(clientHello) {
+      const lengthOf = Uint24.fromValue(clientHello.length);
+      const type = HandshakeType.CLIENT_HELLO;
+      return Handshake.from(safeuint8array(+type, lengthOf, clientHello))
+   }
+   static fromServerHello(serverHello) {
+      const lengthOf = Uint24.fromValue(serverHello.length);
+      const type = HandshakeType.SERVER_HELLO;
+      return Handshake.from(safeuint8array(+type, lengthOf, serverHello))
+   }
+   static fromEndOfEarly() {
+      return Handshake.from(Uint8Array.of(HandshakeType.END_OF_EARLY_DATA, 0, 0, 0))
+   }
+   static from(...args) { return new Handshake(...args) }
    constructor(...args) {
       args = (args.at(0) instanceof Uint8Array) ? sanitize(...args) : args
       super(...args)
