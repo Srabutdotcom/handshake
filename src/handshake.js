@@ -109,21 +109,16 @@ export class Handshake extends Uint8Array {
 
 function sanitize(...args) {
    try {
-      if (HandshakeType.from(args[0]) instanceof HandshakeType) return args
-      throw Error
+      if (!(HandshakeType.from(args[0]) instanceof HandshakeType)) throw Error
+      const lengthOf = Uint24.from(args[0].subarray(1)).value;
+      return [args[0].subarray(0, 4 + lengthOf)]
    } catch (_error) {
       try {
-         if (HandshakeType.from(args[0]) !== HandshakeType.CLIENT_HELLO) throw Error
-         const lengthOf = Uint24.from(args[0].subarray(1)).value;
-         return [args[0].subarray(4, 4 + lengthOf)]
-      } catch (_error) {
-         try {
-            if (ContentType.from(args[0]) !== ContentType.HANDSHAKE) throw Error;
-            const lengthOf = Uint16.from(args[0].subarray(3)).value
-            return [args[0].subarray(5, 5 + lengthOf)]
-         } catch (error) {
-            throw error;
-         }
+         if (ContentType.from(args[0]) !== ContentType.HANDSHAKE) throw Error;
+         const lengthOf = Uint16.from(args[0].subarray(3)).value
+         return [args[0].subarray(5, 5 + lengthOf)]
+      } catch (error) {
+         throw error;
       }
    }
 }
