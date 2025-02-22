@@ -21,6 +21,33 @@ export declare class Handshake extends Uint8Array {
    */
   static fromClientHello(clientHello: Uint8Array): Handshake;
   /**
+    * Creates a Handshake message from an Encrypted Extensions message.
+    * @param encryptedExtension - The Encrypted Extensions message as a Uint8Array.
+    * @returns A Handshake instance.
+    */
+  static fromEncryptedExtension(encryptedExtension: Uint8Array): Handshake;
+
+  /**
+   * Creates a Handshake message from a Certificate message.
+   * @param certificate - The Certificate message as a Uint8Array.
+   * @returns A Handshake instance.
+   */
+  static fromCertificate(certificate: Uint8Array): Handshake;
+
+  /**
+   * Creates a Handshake message from a Certificate Verify message.
+   * @param certificateVerify - The Certificate Verify message as a Uint8Array.
+   * @returns A Handshake instance.
+   */
+  static fromCertificateVerify(certificateVerify: Uint8Array): Handshake;
+
+  /**
+   * Creates a Handshake message from a Finished message.
+   * @param finish - The Finished message as a Uint8Array.
+   * @returns A Handshake instance.
+   */
+  static fromFinished(finish: Uint8Array): Handshake;
+  /**
    * Create Handshake of EndOfEarly
    */
   static fromEndOfEarly(): Handshake;

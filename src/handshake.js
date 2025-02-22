@@ -8,6 +8,8 @@ import {
 } from "./deps.ts";
 import { EndOfEarlyData } from "./endofearly.js";
 
+
+
 /* export class Handshake extends Uint8Array {
    msg_type
    message
@@ -66,6 +68,31 @@ export class Handshake extends Uint8Array {
       const lengthOf = Uint24.fromValue(serverHello.length);
       const type = HandshakeType.SERVER_HELLO;
       return Handshake.from(safeuint8array(+type, lengthOf, serverHello))
+   }
+   static fromEncryptedExtension(encryptedExtension) {
+      const lengthOf = Uint24.fromValue(encryptedExtension.length);
+      const type = HandshakeType.ENCRYPTED_EXTENSIONS;
+      return Handshake.from(safeuint8array(+type, lengthOf, encryptedExtension))
+   }
+   static fromCertificate(certificate){
+      const lengthOf = Uint24.fromValue(certificate.length);
+      const type = HandshakeType.CERTIFICATE;
+      return Handshake.from(safeuint8array(+type, lengthOf, certificate))   
+   }
+   static fromCertificateVerify(certificateVerify){
+      const lengthOf = Uint24.fromValue(certificateVerify.length);
+      const type = HandshakeType.CERTIFICATE_VERIFY;
+      return Handshake.from(safeuint8array(+type, lengthOf, certificateVerify))      
+   }
+   static fromFinished(finish){
+      const lengthOf = Uint24.fromValue(finish.length);
+      const type = HandshakeType.FINISHED;
+      return Handshake.from(safeuint8array(+type, lengthOf, finish))      
+   }
+   static fromNewSessionTicket(newSessionTicket){
+      const lengthOf = Uint24.fromValue(newSessionTicket.length);
+      const type = HandshakeType.NEW_SESSION_TICKET;
+      return Handshake.from(safeuint8array(+type, lengthOf, newSessionTicket))     
    }
    static fromEndOfEarly() {
       return Handshake.from(Uint8Array.of(HandshakeType.END_OF_EARLY_DATA, 0, 0, 0))
