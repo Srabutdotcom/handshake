@@ -4,10 +4,22 @@ import {
    ClientHello, ServerHello,
    ContentType,
    Uint16,
-   safeuint8array
+   safeuint8array,
+   EncryptedExtensions,
+   Certificate,
+   CertificateVerify,
+   Finished
 } from "./deps.ts";
 import { EndOfEarlyData } from "./endofearly.js";
 
+//TODO - listed below 
+/* 
+HandshakeType.NEW_SESSION_TICKET
+HandshakeType.CERTIFICATE_REQUEST
+HandshakeType.KEY_UPDATE
+HandshakeType.MESSAGE_HASH
+HandshakeType.SERVER_PARAMETERS 
+*/
 
 
 /* export class Handshake extends Uint8Array {
@@ -121,6 +133,22 @@ export class Handshake extends Uint8Array {
          }
          case HandshakeType.SERVER_HELLO: {
             this.#message ||= ServerHello.from(array);
+            return this.#message
+         }
+         case HandshakeType.ENCRYPTED_EXTENSIONS: {
+            this.#message ||= EncryptedExtensions.from(array);
+            return this.#message
+         }
+         case HandshakeType.CERTIFICATE: {
+            this.#message ||= Certificate.from(array);
+            return this.#message
+         }
+         case HandshakeType.CERTIFICATE_VERIFY: {
+            this.#message ||= CertificateVerify.from(array);
+            return this.#message
+         }
+         case HandshakeType.FINISHED: {
+            this.#message ||= Finished.from(array);
             return this.#message
          }
          case HandshakeType.END_OF_EARLY_DATA: {
