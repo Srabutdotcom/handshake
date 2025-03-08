@@ -1,6 +1,4 @@
-import {
-  HandshakeType,
-} from "../src/deps.ts";
+import { HandshakeType, NamedGroup } from "../src/deps.ts";
 /**
  * Represents a TLS 1.3 Handshake message.
  * Extends `Uint8Array` to store the raw handshake message data.
@@ -12,19 +10,19 @@ export declare class Handshake extends Uint8Array {
 
   /**
    * Create Handshake of ServerHello
-   * @param serverHello 
+   * @param serverHello
    */
   static fromServerHello(serverHello: Uint8Array): Handshake;
   /**
    * Create Handshake of ClientHello
-   * @param clientHello 
+   * @param clientHello
    */
   static fromClientHello(clientHello: Uint8Array): Handshake;
   /**
-    * Creates a Handshake message from an Encrypted Extensions message.
-    * @param encryptedExtension - The Encrypted Extensions message as a Uint8Array.
-    * @returns A Handshake instance.
-    */
+   * Creates a Handshake message from an Encrypted Extensions message.
+   * @param encryptedExtension - The Encrypted Extensions message as a Uint8Array.
+   * @returns A Handshake instance.
+   */
   static fromEncryptedExtension(encryptedExtension: Uint8Array): Handshake;
 
   /**
@@ -82,4 +80,6 @@ export declare class Handshake extends Uint8Array {
    * @returns {Uint8Array} The parsed handshake message.
    */
   get message(): Uint8Array;
+  set groups(groups: Map<NamedGroup, NamedGroup>);
+  get groups(): Map<NamedGroup, NamedGroup>;
 }

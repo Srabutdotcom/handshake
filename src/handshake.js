@@ -71,10 +71,13 @@ export class Handshake extends Uint8Array {
    #type
    #lengthOf
    #message
+   #groups
    static fromClientHello(clientHello) {
       const lengthOf = Uint24.fromValue(clientHello.length);
       const type = HandshakeType.CLIENT_HELLO;
-      return Handshake.from(safeuint8array(+type, lengthOf, clientHello))
+      const handshake = Handshake.from(safeuint8array(+type, lengthOf, clientHello));
+      handshake.groups = clientHello.groups;
+      return handshake
    }
    static fromServerHello(serverHello) {
       const lengthOf = Uint24.fromValue(serverHello.length);
@@ -160,6 +163,8 @@ export class Handshake extends Uint8Array {
             return this.#message
       }
    }
+   set groups(groups){ this.#groups = groups }
+   get groups(){ return this.#groups }
 }
 
 function sanitize(...args) {
