@@ -1,6 +1,6 @@
 {
   "name": "@tls/handshake",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "license": "MIT",
   "exports": "./src/mod.ts",
   "publish": {
@@ -15,8 +15,8 @@
   },
   "imports": {
     "@tls/auth": "jsr:@tls/auth@^0.1.6",
-    "@tls/enum": "jsr:@tls/enum@^0.8.7",
-    "@tls/keyexchange": "jsr:@tls/keyexchange@^0.3.9",
+    "@tls/enum": "jsr:@tls/enum@^0.8.9",
+    "@tls/keyexchange": "jsr:@tls/keyexchange@^0.4.4",
     "@tls/param": "jsr:@tls/param@^0.2.5",
     "@tls/struct": "jsr:@tls/struct@^0.3.8"
   }
