@@ -4,68 +4,13 @@ import {
    ClientHello, ServerHello,
    ContentType,
    Uint16,
-   safeuint8array,
+   unity,
    EncryptedExtensions,
    Certificate,
    CertificateVerify,
    Finished
 } from "./deps.ts";
 import { EndOfEarlyData } from "./endofearly.js";
-
-//TODO - listed below 
-/* 
-HandshakeType.NEW_SESSION_TICKET
-HandshakeType.CERTIFICATE_REQUEST
-HandshakeType.KEY_UPDATE
-HandshakeType.MESSAGE_HASH
-HandshakeType.SERVER_PARAMETERS 
-*/
-
-
-/* export class Handshake extends Uint8Array {
-   msg_type
-   message
-   static fromMessage(msg_type, message) {
-      return new Handshake(msg_type, message)
-   }
-   static from(array) {
-      const copy = Uint8Array.from(array)
-      const msg_type = HandshakeType.fromValue(copy[0]);
-      const lengthOf = Uint24.from(copy.subarray(1)).value;
-      const message = copy.subarray(4, 4 + lengthOf)
-      return new Handshake(msg_type, message)
-   }
-   constructor(msg_type, message) {
-      const struct = new Struct(msg_type.Uint8, Uint24.fromValue(message.length), message)
-      super(struct)
-      this.msg_type = msg_type;
-      this.message = message
-      this.items = struct.items
-      this.parse()
-   }
-   get byte() { return Uint8Array.from(this) }
-
-   get record() {
-      return new TLSPlaintext(ContentType.HANDSHAKE, Version.legacy, this)
-   }
-
-   get tlsPlainText() { return this.record }
-
-   parse() {
-      switch (this.msg_type) {
-         case HandshakeType.CLIENT_HELLO: {
-            this.message = ClientHello.from(this.message);
-            break;
-         }
-         case HandshakeType.SERVER_HELLO: {
-            this.message = ServerHello.from(this.message);
-            break;
-         }
-         default:
-            break;
-      }
-   }
-} */
 
 export class Handshake extends Uint8Array {
    #type
@@ -75,39 +20,39 @@ export class Handshake extends Uint8Array {
    static fromClientHello(clientHello) {
       const lengthOf = Uint24.fromValue(clientHello.length);
       const type = HandshakeType.CLIENT_HELLO;
-      const handshake = Handshake.from(safeuint8array(+type, lengthOf, clientHello));
+      const handshake = Handshake.from(unity(+type, lengthOf, clientHello));
       handshake.groups = clientHello.groups;
       return handshake
    }
    static fromServerHello(serverHello) {
       const lengthOf = Uint24.fromValue(serverHello.length);
       const type = HandshakeType.SERVER_HELLO;
-      return Handshake.from(safeuint8array(+type, lengthOf, serverHello))
+      return Handshake.from(unity(+type, lengthOf, serverHello))
    }
    static fromEncryptedExtension(encryptedExtension) {
       const lengthOf = Uint24.fromValue(encryptedExtension.length);
       const type = HandshakeType.ENCRYPTED_EXTENSIONS;
-      return Handshake.from(safeuint8array(+type, lengthOf, encryptedExtension))
+      return Handshake.from(unity(+type, lengthOf, encryptedExtension))
    }
    static fromCertificate(certificate){
       const lengthOf = Uint24.fromValue(certificate.length);
       const type = HandshakeType.CERTIFICATE;
-      return Handshake.from(safeuint8array(+type, lengthOf, certificate))   
+      return Handshake.from(unity(+type, lengthOf, certificate))   
    }
    static fromCertificateVerify(certificateVerify){
       const lengthOf = Uint24.fromValue(certificateVerify.length);
       const type = HandshakeType.CERTIFICATE_VERIFY;
-      return Handshake.from(safeuint8array(+type, lengthOf, certificateVerify))      
+      return Handshake.from(unity(+type, lengthOf, certificateVerify))      
    }
    static fromFinished(finish){
       const lengthOf = Uint24.fromValue(finish.length);
       const type = HandshakeType.FINISHED;
-      return Handshake.from(safeuint8array(+type, lengthOf, finish))      
+      return Handshake.from(unity(+type, lengthOf, finish))      
    }
    static fromNewSessionTicket(newSessionTicket){
       const lengthOf = Uint24.fromValue(newSessionTicket.length);
       const type = HandshakeType.NEW_SESSION_TICKET;
-      return Handshake.from(safeuint8array(+type, lengthOf, newSessionTicket))     
+      return Handshake.from(unity(+type, lengthOf, newSessionTicket))     
    }
    static fromEndOfEarly() {
       return Handshake.from(Uint8Array.of(HandshakeType.END_OF_EARLY_DATA, 0, 0, 0))

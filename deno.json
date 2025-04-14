@@ -1,6 +1,6 @@
 {
   "name": "@tls/handshake",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "license": "MIT",
   "exports": "./src/mod.ts",
   "publish": {
@@ -14,10 +14,10 @@
     }
   },
   "imports": {
-    "@tls/auth": "jsr:@tls/auth@^0.1.7",
-    "@tls/enum": "jsr:@tls/enum@^0.9.0",
-    "@tls/keyexchange": "jsr:@tls/keyexchange@^0.4.5",
-    "@tls/param": "jsr:@tls/param@^0.2.6",
-    "@tls/struct": "jsr:@tls/struct@^0.3.8"
+    "@aicone/byte": "jsr:@aicone/byte@^0.7.9",
+    "@tls/auth": "jsr:@tls/auth@^0.2.5",
+    "@tls/enum": "jsr:@tls/enum@^0.9.3",
+    "@tls/keyexchange": "jsr:@tls/keyexchange@^0.4.7",
+    "@tls/param": "jsr:@tls/param@^0.2.6"
   }
 }
