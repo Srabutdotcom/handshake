@@ -1,2 +1,6 @@
 /.vscode
-/deno.lock
+./deno.lock
+/play
+./commit.sh 
+./version.js 
+./.gitignore

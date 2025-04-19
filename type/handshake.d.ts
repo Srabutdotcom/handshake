@@ -1,85 +1,37 @@
-import { HandshakeType, NamedGroup } from "../src/deps.ts";
+import { Certificate, CertificateVerify, ClientHello, EncryptedExtensions, Finished, HandshakeType, NamedGroup, NewSessionTicket, ServerHello } from "../src/deps.ts";
+import { EndOfEarlyData } from "../src/endofearly.js"
 /**
  * Represents a TLS 1.3 Handshake message.
  * Extends `Uint8Array` to store the raw handshake message data.
+ * @version 0.1.7
  */
-export declare class Handshake extends Uint8Array {
-  #type: HandshakeType;
-  #lengthOf: number;
-  #message: Uint8Array;
+export class Handshake extends Uint8Array {
+  static from(...args: ConstructorParameters<typeof Uint8Array>): Handshake;
 
-  /**
-   * Create Handshake of ServerHello
-   * @param serverHello
-   */
-  static fromServerHello(serverHello: Uint8Array): Handshake;
-  /**
-   * Create Handshake of ClientHello
-   * @param clientHello
-   */
-  static fromClientHello(clientHello: Uint8Array): Handshake;
-  /**
-   * Creates a Handshake message from an Encrypted Extensions message.
-   * @param encryptedExtension - The Encrypted Extensions message as a Uint8Array.
-   * @returns A Handshake instance.
-   */
-  static fromEncryptedExtension(encryptedExtension: Uint8Array): Handshake;
-
-  /**
-   * Creates a Handshake message from a Certificate message.
-   * @param certificate - The Certificate message as a Uint8Array.
-   * @returns A Handshake instance.
-   */
-  static fromCertificate(certificate: Uint8Array): Handshake;
-
-  /**
-   * Creates a Handshake message from a Certificate Verify message.
-   * @param certificateVerify - The Certificate Verify message as a Uint8Array.
-   * @returns A Handshake instance.
-   */
-  static fromCertificateVerify(certificateVerify: Uint8Array): Handshake;
-
-  /**
-   * Creates a Handshake message from a Finished message.
-   * @param finish - The Finished message as a Uint8Array.
-   * @returns A Handshake instance.
-   */
-  static fromFinished(finish: Uint8Array): Handshake;
-  /**
-   * Create Handshake of EndOfEarly
-   */
+  static fromClientHello(clientHello: ClientHello): Handshake;
+  static fromServerHello(serverHello: ServerHello): Handshake;
+  static fromEncryptedExtension(encryptedExtension: EncryptedExtensions): Handshake;
+  static fromCertificate(certificate: Certificate): Handshake;
+  static fromCertificateVerify(certificateVerify: CertificateVerify): Handshake;
+  static fromFinished(finished: Finished): Handshake;
+  static fromNewSessionTicket(newSessionTicket: NewSessionTicket): Handshake;
   static fromEndOfEarly(): Handshake;
-  /**
-   * Creates an instance of Handshake from the given arguments.
-   * @param {...any[]} args - Arguments to pass to the constructor.
-   * @returns {Handshake} A new instance of Handshake.
-   */
-  static from(...args: any[]): Handshake;
 
-  /**
-   * Constructs a Handshake instance.
-   * If the first argument is a Uint8Array, it applies `sanitize`.
-   * @param {...any[]} args - Arguments to initialize the Uint8Array.
-   */
-  constructor(...args: any[]);
+  constructor(...args: ConstructorParameters<typeof Uint8Array>);
 
-  /**
-   * Gets the handshake type.
-   * @returns {HandshakeType} The handshake type.
-   */
   get type(): HandshakeType;
-
-  /**
-   * Gets the length of the handshake message.
-   * @returns {number} The length of the handshake message.
-   */
   get lengthOf(): number;
+  get message():
+    | ClientHello
+    | ServerHello
+    | EncryptedExtensions
+    | Certificate
+    | CertificateVerify
+    | Finished
+    | EndOfEarlyData
+    | NewSessionTicket
+    | Uint8Array;
 
-  /**
-   * Gets the handshake message content.
-   * @returns {Uint8Array} The parsed handshake message.
-   */
-  get message(): Uint8Array;
-  set groups(groups: Map<NamedGroup, NamedGroup>);
-  get groups(): Map<NamedGroup, NamedGroup>;
+  set groups(groups: NamedGroup);
+  get groups(): NamedGroup;
 }

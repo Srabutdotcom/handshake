@@ -1,23 +1,37 @@
 {
   "name": "@tls/handshake",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "license": "MIT",
   "exports": "./src/mod.ts",
   "publish": {
-    "exclude": ["dist/"]
+    "exclude": [
+      "dist/"
+    ]
   },
   "lint": {
-    "include": ["src/"],
-    "exclude": ["dist/"],
+    "include": [
+      "src/"
+    ],
+    "exclude": [
+      "dist/"
+    ],
     "rules": {
-      "exclude": ["no-var", "no-explicit-any", "no-slow-types"]
+      "exclude": [
+        "no-var",
+        "no-explicit-any",
+        "no-slow-types"
+      ]
     }
   },
   "imports": {
-    "@aicone/byte": "jsr:@aicone/byte@^0.7.9",
-    "@tls/auth": "jsr:@tls/auth@^0.2.5",
-    "@tls/enum": "jsr:@tls/enum@^0.9.3",
-    "@tls/keyexchange": "jsr:@tls/keyexchange@^0.4.7",
-    "@tls/param": "jsr:@tls/param@^0.2.6"
+    "@aicone/byte": "jsr:@aicone/byte@^0.8.6",
+    "@tls/auth": "jsr:@tls/auth@^0.2.6",
+    "@tls/clienthello": "jsr:@tls/clienthello@^0.0.5",
+    "@tls/enum": "jsr:@tls/enum@^0.9.7",
+    "@tls/extension": "jsr:@tls/extension@^0.6.0",
+    "@tls/param": "jsr:@tls/param@^0.2.8",
+    "@tls/parser": "jsr:@tls/parser@^0.0.3",
+    "@tls/serverhello": "jsr:@tls/serverhello@^0.0.4",
+    "@tls/ticket": "jsr:@tls/ticket@^0.0.9"
   }
 }

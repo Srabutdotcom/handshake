@@ -1,16 +1,16 @@
 //@ts-self-types="../type/handshake.d.ts"
 import {
-   HandshakeType, Uint24,
+   HandshakeType,
    ClientHello, ServerHello,
-   ContentType,
-   Uint16,
    unity,
    EncryptedExtensions,
    Certificate,
    CertificateVerify,
    Finished
 } from "./deps.ts";
+import { Uint24 } from "@aicone/byte";
 import { EndOfEarlyData } from "./endofearly.js";
+import { NewSessionTicket } from "./deps.ts"
 
 export class Handshake extends Uint8Array {
    #type
@@ -34,32 +34,32 @@ export class Handshake extends Uint8Array {
       const type = HandshakeType.ENCRYPTED_EXTENSIONS;
       return Handshake.from(unity(+type, lengthOf, encryptedExtension))
    }
-   static fromCertificate(certificate){
+   static fromCertificate(certificate) {
       const lengthOf = Uint24.fromValue(certificate.length);
       const type = HandshakeType.CERTIFICATE;
-      return Handshake.from(unity(+type, lengthOf, certificate))   
+      return Handshake.from(unity(+type, lengthOf, certificate))
    }
-   static fromCertificateVerify(certificateVerify){
+   static fromCertificateVerify(certificateVerify) {
       const lengthOf = Uint24.fromValue(certificateVerify.length);
       const type = HandshakeType.CERTIFICATE_VERIFY;
-      return Handshake.from(unity(+type, lengthOf, certificateVerify))      
+      return Handshake.from(unity(+type, lengthOf, certificateVerify))
    }
-   static fromFinished(finish){
+   static fromFinished(finish) {
       const lengthOf = Uint24.fromValue(finish.length);
       const type = HandshakeType.FINISHED;
-      return Handshake.from(unity(+type, lengthOf, finish))      
+      return Handshake.from(unity(+type, lengthOf, finish))
    }
-   static fromNewSessionTicket(newSessionTicket){
+   static fromNewSessionTicket(newSessionTicket) {
       const lengthOf = Uint24.fromValue(newSessionTicket.length);
       const type = HandshakeType.NEW_SESSION_TICKET;
-      return Handshake.from(unity(+type, lengthOf, newSessionTicket))     
+      return Handshake.from(unity(+type, lengthOf, newSessionTicket))
    }
    static fromEndOfEarly() {
-      return Handshake.from(Uint8Array.of(HandshakeType.END_OF_EARLY_DATA, 0, 0, 0))
+      return Handshake.from(Uint8Array.of(+HandshakeType.END_OF_EARLY_DATA, 0, 0, 0))
    }
    static from(...args) { return new Handshake(...args) }
    constructor(...args) {
-      args = (args.at(0) instanceof Uint8Array) ? sanitize(...args) : args
+      sanitize_handshake(args)
       super(...args)
    }
    get type() {
@@ -103,27 +103,27 @@ export class Handshake extends Uint8Array {
             this.#message ||= new EndOfEarlyData;
             return this.#message
          }
+         case HandshakeType.NEW_SESSION_TICKET: {
+            this.#message ||= NewSessionTicket.from(array);
+            return this.#message
+         }
          default:
             this.#message ||= array
             return this.#message
       }
    }
-   set groups(groups){ this.#groups = groups }
-   get groups(){ return this.#groups }
+   set groups(groups) { this.#groups = groups }
+   get groups() { return this.#groups }
 }
 
-function sanitize(...args) {
-   try {
-      if (!(HandshakeType.from(args[0]) instanceof HandshakeType)) throw Error
-      const lengthOf = Uint24.from(args[0].subarray(1)).value;
-      return [args[0].subarray(0, 4 + lengthOf)]
-   } catch (_error) {
-      try {
-         if (ContentType.from(args[0]) !== ContentType.HANDSHAKE) throw Error;
-         const lengthOf = Uint16.from(args[0].subarray(3)).value
-         return [args[0].subarray(5, 5 + lengthOf)]
-      } catch (error) {
-         throw error;
-      }
-   }
+function sanitize_handshake(args) {
+   const a0 = args[0];
+   if (!(a0 instanceof Uint8Array)) return
+
+   if (!(HandshakeType.from(a0) instanceof HandshakeType)) throw new TypeError(`Expected HandshakeType`)
+   const lengthOf = Uint24.from(a0.subarray(1)).value;
+
+   args[0] = a0.subarray(0, 4 + lengthOf)
+
+   return
 }
