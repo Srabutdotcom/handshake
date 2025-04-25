@@ -1,6 +1,6 @@
 {
   "name": "@tls/handshake",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "license": "MIT",
   "exports": "./src/mod.ts",
   "publish": {
@@ -24,14 +24,14 @@
     }
   },
   "imports": {
-    "@aicone/byte": "jsr:@aicone/byte@^0.8.6",
+    "@aicone/byte": "jsr:@aicone/byte@^0.8.8",
     "@tls/auth": "jsr:@tls/auth@^0.2.6",
-    "@tls/clienthello": "jsr:@tls/clienthello@^0.0.5",
-    "@tls/enum": "jsr:@tls/enum@^0.9.7",
-    "@tls/extension": "jsr:@tls/extension@^0.6.0",
+    "@tls/clienthello": "jsr:@tls/clienthello@^0.10.1",
+    "@tls/enum": "jsr:@tls/enum@^0.10.0",
+    "@tls/extension": "jsr:@tls/extension@^0.6.4",
     "@tls/param": "jsr:@tls/param@^0.2.8",
     "@tls/parser": "jsr:@tls/parser@^0.0.3",
-    "@tls/serverhello": "jsr:@tls/serverhello@^0.0.4",
+    "@tls/serverhello": "jsr:@tls/serverhello@^0.0.5",
     "@tls/ticket": "jsr:@tls/ticket@^0.0.9"
   }
 }
