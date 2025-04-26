@@ -1,7 +1,7 @@
 /**
  * Represents the TLS 1.3 `EndOfEarlyData` handshake message.
  * This message is sent by the client to indicate the end of early data.
- * @version 0.2.0
+ * @version 0.2.1
  */
 export declare class EndOfEarlyData extends Uint8Array {
   /**

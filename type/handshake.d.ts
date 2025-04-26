@@ -3,7 +3,7 @@ import { EndOfEarlyData } from "../src/endofearly.js"
 /**
  * Represents a TLS 1.3 Handshake message.
  * Extends `Uint8Array` to store the raw handshake message data.
- * @version 0.2.0
+ * @version 0.2.1
  */
 export class Handshake extends Uint8Array {
   static from(...args: ConstructorParameters<typeof Uint8Array>): Handshake;
