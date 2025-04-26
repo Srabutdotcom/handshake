@@ -9,7 +9,7 @@
     "jsr:@std/assert@^1.0.12": "1.0.12",
     "jsr:@std/internal@^1.0.6": "1.0.6",
     "jsr:@tls/auth@~0.2.6": "0.2.6",
-    "jsr:@tls/clienthello@^1.1.1": "1.1.1",
+    "jsr:@tls/clienthello@^1.1.2": "1.1.2",
     "jsr:@tls/enum@0.10": "0.10.0",
     "jsr:@tls/enum@~0.9.7": "0.9.7",
     "jsr:@tls/extension@0.6": "0.6.0",
@@ -70,8 +70,8 @@
         "npm:@stablelib/sha384"
       ]
     },
-    "@tls/clienthello@1.1.1": {
-      "integrity": "75ed619fb2d81559ae18980cf772ae1f4f78b283fe99f8870227ad11557197b4",
+    "@tls/clienthello@1.1.2": {
+      "integrity": "afac5f62fa576ff8f6956106dbc6d82126a17f9a2bd177ad1889d4b7103eed6b",
       "dependencies": [
         "jsr:@aicone/byte@~0.8.8",
         "jsr:@tls/enum@0.10",
@@ -476,7 +476,7 @@
     "dependencies": [
       "jsr:@aicone/byte@~0.8.8",
       "jsr:@tls/auth@~0.2.6",
-      "jsr:@tls/clienthello@^1.1.1",
+      "jsr:@tls/clienthello@^1.1.2",
       "jsr:@tls/enum@0.10",
       "jsr:@tls/extension@~0.6.4",
       "jsr:@tls/param@~0.2.8",
